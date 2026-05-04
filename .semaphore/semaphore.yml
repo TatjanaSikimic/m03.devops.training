@@ -68,6 +68,7 @@ blocks:
             - source venv/bin/activate
             - pip install bandit
             - 'bandit -r vulnerable_script.py '
+            - artifact push job bandit_report.json
   - name: DAST Scan
     dependencies:
       - SAST scan
