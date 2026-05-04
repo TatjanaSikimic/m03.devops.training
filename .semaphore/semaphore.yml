@@ -17,11 +17,11 @@ global_job_config:
     commands:
       - checkout
 blocks:
-  - name: 1-signing
+  - name: Code signing
     dependencies: []
     task:
       jobs:
-        - name: 1-signing
+        - name: Sign the code
           commands:
             - echo "$PWD"
             - cd 1-signing/
@@ -31,14 +31,15 @@ blocks:
             - 'gpg --verify artifact.txt.sig artifact.txt '
       secrets:
         - name: GPG-Tatjana
-  - name: "\U0001F680 Deploy"
+  - name: SBOM
     dependencies:
-      - 1-signing
+      - Code signing
     task:
       jobs:
-        - name: "\U0001F4E6 Deploy to Production"
+        - name: Cyclonedx
           commands:
-            - echo "Building application..."
-            - echo "Running security checks..."
-            - echo "Deploying to production..."
-            - echo "Deployment completed successfully!"
+            - cd 2-sbom/
+            - python -m venv venv
+            - source venv/bin/activate
+            - 'pip install cyclonedx-bom '
+            - 'cyclonedx-py requirements -o bom.json '
