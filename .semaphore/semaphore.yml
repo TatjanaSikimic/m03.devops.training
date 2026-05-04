@@ -83,4 +83,4 @@ blocks:
             - pip install wapiti3
             - 'gunicorn -b 0:0:0:0:4000 app:app --daemon'
             - 'wapiti -u http://localhost:4000 -f html'
-            - /root/.wapiti/generated_report
+            - /home/semaphore/.wapiti/generated_report
