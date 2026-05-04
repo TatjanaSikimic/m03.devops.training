@@ -63,7 +63,23 @@ blocks:
       jobs:
         - name: Bandit
           commands:
+            - cd 4-sast
             - python -m venv venv
             - source venv/bin/activate
             - pip install bandit
             - 'bandit -r vulnerable_script.py '
+  - name: DAST Scan
+    dependencies:
+      - SAST scan
+    task:
+      jobs:
+        - name: wapiti
+          commands:
+            - cd 5-dast
+            - python -m venv venv
+            - source venv/bin/activate
+            - pip install -r requirements.txt
+            - pip install wapiti3
+            - 'gunicorn -b 0:0:0:0:4000 app:app --daemon'
+            - 'wapiti -u http://localhost:4000 -f html'
+            - /root/.wapiti/generated_report
