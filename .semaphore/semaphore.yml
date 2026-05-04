@@ -24,7 +24,6 @@ blocks:
       jobs:
         - name: Sign the code
           commands:
-            - echo "$PWD"
             - cd 1-signing/
             - 'gpg --import /home/semaphore/public.key '
             - 'gpg --import /home/semaphore/private.key '
