@@ -43,3 +43,14 @@ blocks:
             - 'pip install cyclonedx-bom '
             - 'cyclonedx-py requirements -o bom.json '
             - artifact push job bom.json
+  - name: Audit dependencies
+    dependencies:
+      - SBOM
+    task:
+      jobs:
+        - name: pip audit
+          commands:
+            - python -m venv venv
+            - source venv/bin/activate
+            - pip install pip-audit
+            - pip-audit -r requirements.txt
