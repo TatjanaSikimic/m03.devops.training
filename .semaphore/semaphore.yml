@@ -76,6 +76,7 @@ blocks:
         - name: wapiti
           commands:
             - cd 5-dast
+            - echo "test"
             - python -m venv venv
             - source venv/bin/activate
             - pip install -r requirements.txt
