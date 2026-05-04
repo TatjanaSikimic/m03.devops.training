@@ -19,7 +19,7 @@ blocks:
       jobs:
         - name: 1-signing
           commands:
-            - echo $PWD
+            - echo "$PWD"
             - cd 1-signing/
             - 'gpg --import /home/semaphore/public.key '
             - 'gpg --import /home/semaphore/private.key '
